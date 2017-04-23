@@ -50,6 +50,12 @@ namespace :ptourist do
     @mike_user ||= get_user("mike")
   end
 
+  def create_tag name, thing_id
+    puts "building tag"
+    tag=Tag.create(:name=>name)
+    tag.thing_tags.create(thing_id: thing_id)
+  end
+
   def create_image organizer, img
     puts "building image for #{img[:caption]}, by #{organizer.name}"
     image=Image.create(:creator_id=>organizer.id,:caption=>img[:caption],:lat=>img[:lat],:lng=>img[:lng])
@@ -90,7 +96,7 @@ namespace :ptourist do
   end
 
   desc "reset all data"
-  task reset_all: [:users,:subjects] do
+  task reset_all: [:users,:subjects, :tags] do
   end
 
   desc "deletes things, images, and links" 
@@ -105,6 +111,20 @@ namespace :ptourist do
   task delete_all: [:delete_subjects] do
     puts "removing #{User.count} users"
     DatabaseCleaner[:active_record].clean_with(:truncation, {:only=>%w[users]})
+  end
+
+  desc "reset tags"
+  task :tags => :environment do
+    Tag.destroy_all()
+    puts "creating tags"
+    Thing.all.each do |thing|
+        create_tag(Faker::Company.name,thing.id)
+    end
+    Tag.first.thing_tags.create(thing_id: Thing.last.id)
+    Tag.second.thing_tags.create(thing_id: Thing.last(2).first.id)
+    Tag.second.thing_tags.create(thing_id: Thing.last(3).first.id)
+    Tag.last.thing_tags.create(thing_id: Thing.last(4).first.id)
+
   end
 
   desc "reset users"

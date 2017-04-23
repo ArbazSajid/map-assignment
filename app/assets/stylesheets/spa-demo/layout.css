@@ -270,3 +270,7 @@ sd-image-viewer div.image-items span.id {
 @media (max-width: 479px) {
 }
 
+div.image-map {
+  height: 700px;
+}
+

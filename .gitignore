@@ -12,7 +12,7 @@
 !/log/.keep
 /tmp
 *.swp
-
+.DS_Store
 /db/images
 
 /client/build

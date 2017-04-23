@@ -68,3 +68,10 @@
 //= require spa-demo/subjects/current_subjects/current_subjects.component
 //= require spa-demo/subjects/current_images/current_images.component
 //= require spa-demo/subjects/current_things/current_things.component
+
+//= require spa-demo/tags/tags.module
+//= require spa-demo/tags/tags.service
+//= require spa-demo/tags/thing_tags.service
+//= require spa-demo/tags/selectedtag.service
+//= require spa-demo/tags/tags.component
+//= require spa-demo/tags/map.component

@@ -1,0 +1,26 @@
+<div class="row">
+  <div class="col-md-12">
+    <h4>Tags</h4>
+    <ul ng-repeat="tag in $ctrl.tags">
+      <li>
+        <a ng-click="changeSelectedTag(tag)">
+          {{tag.name}}
+        </a>
+      </li>
+    </ul>
+
+
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <h4 ng-show="$ctrl.things">Things</h4>
+    <ul ng-repeat="thing in $ctrl.things">
+      <li>
+        <a ng-click="$ctrl.clickThing(thing);">
+          {{thing.name}}
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>

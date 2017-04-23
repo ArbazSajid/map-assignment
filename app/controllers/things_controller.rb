@@ -4,7 +4,7 @@ class ThingsController < ApplicationController
   before_action :set_thing, only: [:show, :update, :destroy]
   before_action :authenticate_user!, only: [:create, :update, :destroy]
   wrap_parameters :thing, include: ["name", "description", "notes"]
-  after_action :verify_authorized
+  after_action :verify_authorized, except: [:tagable_things]
   after_action :verify_policy_scoped, only: [:index]
 
   def index
@@ -52,6 +52,12 @@ class ThingsController < ApplicationController
     @thing.destroy
 
     head :no_content
+  end
+
+  def tagable_things
+    tag=Tag.find(params[:tag_id])
+    @things = Thing.linked_with_tag(tag)
+    render :index
   end
 
   private
